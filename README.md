@@ -1,3 +1,5 @@
+**This is a fork in which the bastion+NFS host is also created**
+
 # terraform-openstack-rke
 
 [![Terraform Registry](https://img.shields.io/badge/terraform-registry-blue.svg)](https://registry.terraform.io/modules/remche/rke/openstack)

@@ -20,7 +20,7 @@ module "secgroup" {
   source       = "./modules/secgroup"
   name_prefix  = var.cluster_name
   rules        = var.secgroup_rules
-  bastion_host = var.bastion_host != null ? var.bastion_host : values(module.master.nodes)[0].floating_ip
+  bastion_host = var.bastion_host ? module.bastion.bastion_ip : values(module.master.nodes)[0].floating_ip
 }
 
 module "master" {
@@ -98,7 +98,7 @@ module "rke" {
     module.edge.associate_floating_ip,
     module.worker.associate_floating_ip,
     module.network.router_interface,
-  module.secgroup.secgroup_rules]
+    module.secgroup.secgroup_rules]
   cluster_name      = var.cluster_name
   master_nodes      = module.master.nodes
   worker_nodes      = module.worker.nodes
@@ -106,7 +106,7 @@ module "rke" {
   system_user       = var.system_user
   ssh_key_file      = var.ssh_key_file
   use_ssh_agent     = var.use_ssh_agent
-  bastion_host      = var.bastion_host != null ? var.bastion_host : values(module.master.nodes)[0].floating_ip
+  bastion_host      = var.bastion_host ? module.bastion.bastion_ip : values(module.master.nodes)[0].floating_ip
   wait_for_commands = var.wait_for_commands
   os_auth_url       = var.os_auth_url
   os_password       = var.os_password
@@ -130,4 +130,15 @@ module "rke" {
   default_storage   = var.default_storage
   addons_include    = var.addons_include
   write_kubeconfig  = var.write_kubeconfig
+}
+
+module "bastion" {
+  source = "./modules/bastion"
+  image_id = var.bastion_image_id
+  network_name = module.network.nodes_net_name
+  volume_size = var.nfs_volume_size
+  floating_ip_pool = var.public_net_name
+  flavor = var.bastion_flavor
+  access_key_name = module.keypair.keypair_name
+  to_create = var.bastion_host
 }

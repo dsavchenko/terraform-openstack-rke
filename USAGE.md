@@ -267,11 +267,29 @@ Default: `"true"`
 
 ### bastion\_host
 
-Description: Bastion host. Will use first master node if not set
+Description: Create Bastion host. Will use first master node if false
 
+Type: `bool`
+
+Default: `true`
+
+### bastion\_image\_id
 Type: `string`
 
 Default: `null`
+
+### bastion\_flavor
+Type: `string`
+
+Default: `null`
+
+### nfs\_volume\_size
+Description: The size of the persistent volume for NFS data
+
+Type: `number`
+
+Default: 10
+
 
 ### wait\_for\_commands
 

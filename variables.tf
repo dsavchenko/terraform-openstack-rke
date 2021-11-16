@@ -165,6 +165,34 @@ variable "use_octavia" {
   description = "Use Octavia LBaaS instead of Neutron Networking"
 }
 
+#################################
+# Bastion+NFS related variables #
+#################################
+
+variable "bastion_host" {
+  type        = bool
+  default     = "false"
+  description = "Create bastion host. Will use first master node if false"
+}
+
+variable "bastion_image_id" {
+    type = string
+    default = null
+}
+
+variable "bastion_flavor" {
+  type = string
+  default = null
+}
+
+variable "nfs_volume_size" {
+  type = number
+  default = 10
+  description = "The size of the persistent volume for NFS data"
+}
+
+
+
 #################
 # RKE variables #
 #################
@@ -179,12 +207,6 @@ variable "use_ssh_agent" {
   type        = bool
   default     = "true"
   description = "Whether to use ssh agent"
-}
-
-variable "bastion_host" {
-  type        = string
-  default     = null
-  description = "Bastion host. Will use first master node if not set"
 }
 
 variable "wait_for_commands" {
