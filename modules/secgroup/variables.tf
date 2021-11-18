@@ -9,3 +9,7 @@ variable "rules" {
 variable "bastion_host" {
   type = string
 }
+
+variable "bastion_host_internal" {
+  type = string
+}

@@ -21,6 +21,7 @@ module "secgroup" {
   name_prefix  = var.cluster_name
   rules        = var.secgroup_rules
   bastion_host = var.bastion_host ? module.bastion.bastion_ip : values(module.master.nodes)[0].floating_ip
+  bastion_host_internal = var.bastion_host ? module.bastion.bastion_internal_ip : values(module.master.nodes)[0].internal_ip
 }
 
 module "master" {

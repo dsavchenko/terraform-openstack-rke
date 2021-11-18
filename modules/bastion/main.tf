@@ -31,6 +31,7 @@ resource "openstack_compute_instance_v2" "bastion" {
       [[ `lsblk /dev/vdb -no FSTYPE` == "" ]] && mkfs.ext4 /dev/vdb
       mkdir -p /export
       mount /dev/vdb /export
+      chmod o+w /export
     owner: root:root
     path: /root/mkstorage.sh
     permissions: '0755'

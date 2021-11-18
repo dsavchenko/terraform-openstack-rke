@@ -17,6 +17,13 @@ resource "openstack_networking_secgroup_rule_v2" "tunnel_rule" {
   security_group_id = openstack_networking_secgroup_v2.secgroup.id
 }
 
+resource "openstack_networking_secgroup_rule_v2" "tunnel_rule_int" {
+  direction         = "ingress"
+  ethertype         = "IPv4"
+  remote_ip_prefix  = "${var.bastion_host_internal}/32"
+  security_group_id = openstack_networking_secgroup_v2.secgroup.id
+}
+
 resource "openstack_networking_secgroup_rule_v2" "rules" {
   for_each          = {
     for rule in var.rules :
