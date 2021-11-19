@@ -4,11 +4,13 @@ resource "null_resource" "wait_for_master_ssh" {
     node_instance_id = each.value.id
   }
   connection {
+    bastion_host = var.bastion_host
     host        = each.value.floating_ip
     user        = var.system_user
     private_key = var.use_ssh_agent ? null : file(var.ssh_key_file)
     agent       = var.use_ssh_agent
   }
+
   provisioner "remote-exec" {
     inline = var.wait_for_commands
   }

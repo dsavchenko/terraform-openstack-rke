@@ -211,6 +211,8 @@ spec:
           value: "true"
         - name: TRAEFIK_CERTIFICATESRESOLVERS_DEFAULT_ACME_EMAIL
           value: ${acme_email}
+        - name: TRAEFIK_ENTRYPOINTS_WEB_HTTP_REDIRECTIONS_ENTRYPOINT_TO
+          value: webs
         ports:
         - name: web
           containerPort: 80
